@@ -12,7 +12,7 @@ function onLoad()
   subnameCards={{name="Dream Diary",xp=3},{name="The Necronomicon",xp=0},{name="Archaic Glyphs",xp=3},{name="Strange Solution",xp=4},{name="Relic of Ages",xp=0}, {name="Ancient Stone",xp=4}, {"Dream Diary",xp=0}}
   extraPermanents={["Duke"]=true,["Sophie"]=true}
   multiClassCards={{name=".45 Thompson",xp=3},{name="Scroll of Secrets",xp=3},{name="Tennessee Sour Mash",xp=3},{name="Enchanted Blade",xp=3},{name="Grisly Totem",xp=3}}
-  bondedCards={{name="Hallowed Mirror",bondedName="Soothing Melody",bondedCode=05314,copies=3},{name="Occult Lexicon",bondedName="Blood-Rite",bondedCode=05317,copies=3}}
+--  bondedCards={{name="Hallowed Mirror",bondedName="Soothing Melody",bondedCode=05314,copies=3},{name="Occult Lexicon",bondedName="Blood-Rite",bondedCode=05317,copies=3}}
   privateDeck = true
   permanents = true
 
@@ -238,17 +238,17 @@ function cardReadCallback(req)
     cardList[JsonCardRes.code].permanent = false
   end
 
-  -- Check for bonded
-  for k,v in pairs(bondedCards) do
-    if (v.name == JsonCardRes.real_name)
-    then
-      local row = {}
-      row.cardName = v.bondedName
-      row.cardCount = v.copies
-      row.permanent = true
-      cardList[v.bondedCode] = row
-    end
-  end
+  ---- Check for bonded
+  --for k,v in pairs(bondedCards) do
+  --  if (v.name == JsonCardRes.real_name)
+  --  then
+  --    local row = {}
+  --    row.cardName = v.bondedName
+  --    row.cardCount = v.copies
+  --    row.permanent = true
+  --    cardList[v.bondedCode] = row
+  --  end
+  --end
 
   -- Check for Taboos (add " (Taboo)" to card name)
   if tabooID then
