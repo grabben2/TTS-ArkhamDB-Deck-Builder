@@ -8,8 +8,8 @@ function onLoad()
   publicDeckURL="https://arkhamdb.com/api/public/decklist/"
   privateDeckURL="https://arkhamdb.com/api/public/deck/"
   cardURL="https://arkhamdb.com/api/public/card/"
-	tabooListURL="https://arkhamdb.com/api/public/taboos/"
-  subnameCards={{name="Dream Diary",xp=3},{name="The Necronomicon",xp=0},{name="Archaic Glyphs",xp=3},{name="Strange Solution",xp=4},{name="Relic of Ages",xp=0}, {name="Ancient Stone",xp=4}}
+  tabooListURL="https://arkhamdb.com/api/public/taboos/"
+  subnameCards={{name="Dream Diary",xp=3},{name="The Necronomicon",xp=0},{name="Archaic Glyphs",xp=3},{name="Strange Solution",xp=4},{name="Relic of Ages",xp=0}, {name="Ancient Stone",xp=4}, {"Dream Diary",xp=0}}
   extraPermanents={["Duke"]=true,["Sophie"]=true}
   multiClassCards={{name=".45 Thompson",xp=3},{name="Scroll of Secrets",xp=3},{name="Tennessee Sour Mash",xp=3},{name="Enchanted Blade",xp=3},{name="Grisly Totem",xp=3}}
   bondedCards={{name="Hallowed Mirror",bondedName="Soothing Melody",bondedCode=05314,copies=3},{name="Occult Lexicon",bondedName="Blood-Rite",bondedCode=05317,copies=3}}
@@ -23,9 +23,9 @@ function onLoad()
   makeCheckboxPP()
   makeCheckboxPerms()
 
-	-- Get current taboolist
-	tabooList = {}
-	WebRequest.get(tabooListURL, self, 'tabooListCallback')
+  -- Get current taboolist
+  tabooList = {}
+  WebRequest.get(tabooListURL, self, 'tabooListCallback')
 end
 
 function spawnZone()
@@ -91,7 +91,7 @@ function init()
   playerCardDeck = {}
   weaknessDeck = {}
   totalCards = 0
-	tabooID = 0
+  tabooID = 0
 end
 
 function buttonClicked()
@@ -172,7 +172,7 @@ function deckReadCallback(req)
     numSlots = numSlots + 1
   end
 
-	-- Check for taboos
+  -- Check for taboos
   tabooID = JsonDeckRes.taboo_id
   if tabooID
   then
@@ -250,15 +250,15 @@ function cardReadCallback(req)
     end
   end
 
-	-- Check for Taboos (add " (Taboo)" to card name)
-	if tabooID then
-		for k,v in pairs(tabooList[tabooID].cards) do
-			if v.code == JsonCardRes.code
-			then
-				cardList[JsonCardRes.code].cardName = cardList[JsonCardRes.code].cardName .. " (Taboo)"
-			end
-		end
-	end
+  -- Check for Taboos (add " (Taboo)" to card name)
+  if tabooID then
+    for k,v in pairs(tabooList[tabooID].cards) do
+      if v.code == JsonCardRes.code
+      then
+        cardList[JsonCardRes.code].cardName = cardList[JsonCardRes.code].cardName .. " (Taboo)"
+      end
+    end
+  end
 
   -- Update number of processed slots, if complete, start building the deck
   doneSlots = doneSlots + 1
